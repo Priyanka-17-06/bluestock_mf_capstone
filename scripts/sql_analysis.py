@@ -17,5 +17,21 @@ print("Schemes by Fund House:")
 
 for row in result:
     print(row)
+query = """
+SELECT
+    fm.amfi_code,
+    fm.scheme_name,
+    sp.return_1yr_pct
+FROM performance sp
+JOIN fund_master fm
+    ON sp.amfi_code = fm.amfi_code
+ORDER BY sp.return_1yr_pct DESC
+LIMIT 10;
+"""
 
-conn.close()
+result = conn.execute(query).fetchall()
+
+print("Top 10 Schemes by 1-Year Return:")
+
+for row in result:
+    print(row)
